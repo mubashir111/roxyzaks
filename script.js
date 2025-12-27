@@ -1,30 +1,33 @@
 
 document.addEventListener('DOMContentLoaded', () => {
     // --- Mobile Navigation Toggle ---
-    const menuToggle = document.querySelector('.menu-toggle');
-    const navLinks = document.querySelector('.nav-links');
+    const menuToggle = document.querySelector('.mobile-menu-btn'); // Fixed selector
+    const navCenter = document.querySelector('.nav-center');
 
-    if (menuToggle && navLinks) {
+    if (menuToggle && navCenter) {
         menuToggle.addEventListener('click', () => {
-            navLinks.classList.toggle('active');
+            navCenter.classList.toggle('active'); // CSS expects .nav-center.active
             menuToggle.classList.toggle('active');
         });
 
         // Close menu when clicking outside
         document.addEventListener('click', (e) => {
-            if (!menuToggle.contains(e.target) && !navLinks.contains(e.target)) {
-                navLinks.classList.remove('active');
+            if (!menuToggle.contains(e.target) && !navCenter.contains(e.target)) {
+                navCenter.classList.remove('active');
                 menuToggle.classList.remove('active');
             }
         });
 
         // Close menu when clicking a link
-        navLinks.querySelectorAll('a').forEach(link => {
-            link.addEventListener('click', () => {
-                navLinks.classList.remove('active');
-                menuToggle.classList.remove('active');
+        const navLinks = navCenter.querySelector('.nav-links');
+        if (navLinks) {
+            navLinks.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', () => {
+                    navCenter.classList.remove('active');
+                    menuToggle.classList.remove('active');
+                });
             });
-        });
+        }
     }
 
     // --- Navbar Scroll Effect (Restored) ---
